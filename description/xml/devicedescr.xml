@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:MediaServer:2</deviceType>
+    <friendlyName>Node Media Server</friendlyName>
+    <manufacturer>Vinod KG</manufacturer>
+    <manufacturerURL>http://www.vinod.com</manufacturerURL>
+    <modelDescription>MediaServer 1.0</modelDescription>
+    <modelName>Media Server Device</modelName>
+    <modelNumber>1.0</modelNumber>
+    <modelURL>http://www.vinod.com/DmsDevice/</modelURL>
+    <serialNumber>123456789001</serialNumber>
+    <UDN>uuid:1eecac01-b4f5-4da3-a6f4-4696034c9ea8</UDN>
+    <UPC>123456789012</UPC>
+	<iconList>
+		<icon>
+			<mimetype>image/png</mimetype>
+			<width>120</width>
+			<height>120</height>
+			<depth>8</depth>
+			<url>/png_big_icon.png</url>
+		</icon>
+		<icon>
+			<mimetype>image/png</mimetype>
+			<width>48</width>
+			<height>48</height>
+			<depth>8</depth>
+			<url>/png_small_icon.png</url>
+		</icon>
+		<icon>
+			<mimetype>image/jpeg</mimetype>
+			<width>120</width>
+			<height>120</height>
+			<depth>8</depth>
+			<url>/jpeg_big_icon.jpg</url>
+		</icon>
+		<icon>
+			<mimetype>image/jpeg</mimetype>
+			<width>48</width>
+			<height>48</height>
+			<depth>8</depth>
+			<url>/jpeg_small_icon.jpg</url>
+		</icon>
+	</iconList>
+	<serviceList>	
+		<service>
+		<serviceType>urn:schemas-upnp-org:service:ConnectionManager:2</serviceType>
+			<serviceId>urn:upnp-org:serviceId:ConnectionManager</serviceId>
+			<SCPDURL>/connectionmanagerSCPD.xml</SCPDURL>
+			<controlURL>/upnp/control/ConnectionManager</controlURL>
+			<eventSubURL>/upnp/event/ConnectionManager</eventSubURL>
+		</service>
+		<service>
+			<serviceType>urn:schemas-upnp-org:service:ContentDirectory:2</serviceType>
+			<serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
+			<SCPDURL>/contentdirectorySCPD.xml</SCPDURL>
+			<controlURL>/upnp/control/ContentDirectory</controlURL>
+			<eventSubURL>/upnp/event/ContentDirectory</eventSubURL>
+		</service>
+	</serviceList>
+   </device>
+</root>
