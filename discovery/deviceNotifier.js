@@ -6,12 +6,14 @@ var DeviceNotifier = function()
 
 	this.upnpNotifyMulticastAddress = '239.255.255.250';
 	this.upnpNotifyMulticastPort = '1900';
-
+    
+    var utils = require('../utils/utils');
+    this.localIpAddress = utils.getNetworkIP(require('../config/config').network_interface_name);
 
 	this.notifyString =	"NOTIFY * HTTP/1.1\r\n" +
 		"HOST: 239.255.255.250:1900\r\n" +
 		"CACHE-CONTROL: max-age = 100\r\n" +
-		"LOCATION: http://192.168.10.101:8080/description.xml\r\n" +
+		"LOCATION: http://" + this.localIpAddress + ":8080/description.xml\r\n" +
 		"NT: upnp:rootdevice\r\n" +
 		"NTS: ssdp:alive\r\n" +
 		"SERVER: Ubuntu/12.04 UPnP/1.0 node-media-server/0.3\r\n" +
@@ -20,7 +22,12 @@ var DeviceNotifier = function()
 
 	this.startAdvertisements = function (interval) {	
 
-	
+        if (this.localIpAddress === '0.0.0.0')
+        {
+            console.log ("No valid interfaces to run media server. Abort notifications");
+            return;
+        }
+
 		var dgram = require('dgram'); 
 		this.server = dgram.createSocket("udp4"); 
 		this.server.bind();
