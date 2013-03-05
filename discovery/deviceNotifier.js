@@ -1,7 +1,18 @@
-// Device advertisement
 
-var DeviceNotifier = function()
-{
+/*!
+ * Device Notifier
+ * Copyright(c) 2013 Vinod Gopalan <kgvinod@gmail.com>
+ * MIT Licensed
+ */
+
+/**
+ * Module dependencies.
+ */
+var utils = require('../utils/utils')
+  , config = require('../config/config');
+
+module.exports = {
+
 	var self = this;
 
 	this.upnpNotifyMulticastAddress = '239.255.255.250';
@@ -50,6 +61,5 @@ var DeviceNotifier = function()
 		//console.log("Sent :" + message);
 		//server.close();
 	}
-}
+};
  
-module.exports = new DeviceNotifier();
