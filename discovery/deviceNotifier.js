@@ -75,10 +75,6 @@ DeviceNotifier.prototype.stopAdvertisements = function (interval) {
 }
 
 
-
- 
-
-
 /**
   * Exports.
   */
