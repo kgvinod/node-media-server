@@ -4,8 +4,9 @@ var app = express();
 //var utils = require('./utils/utils');
 //utils.getNetworkIP(require('./config/config').network_interface_name);
 
-var deviceNotifier = require('./discovery/deviceNotifier')
-deviceNotifier.startAdvertisements(3000);
+var deviceNotify = require('./discovery/deviceNotifier');
+var deviceNotifier = new deviceNotify(require('./config/config').network_interface_name, 3000);
+deviceNotifier.startAdvertisements();
 
 app.listen(8080);
  

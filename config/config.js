@@ -2,7 +2,7 @@
 
 var config = {
 
-network_interface_name : 'wlan0'
+network_interface_name : 'eth0'
 
 }
 
