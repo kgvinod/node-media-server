@@ -23,7 +23,7 @@ var utils = require('../utils/utils')
 
 function DeviceNotifier (iface_name, interval) {
 	this.ipAddr = utils.getNetworkIP(iface_name);
-	this.interval = interval;
+    this.interval = interval;
 	this.server = undefined;	
 	this.upnpNotifyMulticastAddress = '239.255.255.250';
 	this.upnpNotifyMulticastPort = '1900';
