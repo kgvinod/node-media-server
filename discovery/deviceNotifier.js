@@ -51,7 +51,7 @@ DeviceNotifier.prototype.startAdvertisements = function (iface_name, interval) {
 	this.notifyString =	"NOTIFY * HTTP/1.1\r\n" +
 		"HOST: 239.255.255.250:1900\r\n" +
 		"CACHE-CONTROL: max-age = 100\r\n" +
-		"LOCATION: http://" + this.ipAddr + ":8080/description.xml\r\n" +
+		"LOCATION: http://" + this.ipAddr + ":" + config.web_server_port + "/upnp/description.xml\r\n" +
 		"NT: upnp:rootdevice\r\n" +
 		"NTS: ssdp:alive\r\n" +
 		"SERVER: Ubuntu/12.04 UPnP/1.0 node-media-server/0.3\r\n" +

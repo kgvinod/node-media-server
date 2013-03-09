@@ -13,7 +13,7 @@ var app = express();
 
 deviceNotifier.startAdvertisements(config.network_interface_name, 3000);
 
-app.listen(8080);
+app.listen(config.web_server_port);
 
 
  
@@ -22,7 +22,7 @@ app.configure( function() {
     app.use(express.bodyParser());
 });
 
-app.get('/description.xml', function(req, res) {
+app.get('/upnp/description.xml', function(req, res) {
 	
 	//var body = 'Hello World';
 	//res.setHeader('Content-Type', 'text/plain');
@@ -33,7 +33,7 @@ app.get('/description.xml', function(req, res) {
     console.log('Sent device description');
 });
 
-app.get('/connectionmanagerSCPD.xml', function(req, res) {
+app.get('/upnp/connectionmanagerSCPD.xml', function(req, res) {
 	
 	//var body = 'Hello World';
 	//res.setHeader('Content-Type', 'text/plain');
@@ -44,7 +44,7 @@ app.get('/connectionmanagerSCPD.xml', function(req, res) {
     console.log('Sent service description');
 });
 
-app.get('/contentdirectorySCPD.xml', function(req, res) {
+app.get('/upnp/contentdirectorySCPD.xml', function(req, res) {
 	
 	//var body = 'Hello World';
 	//res.setHeader('Content-Type', 'text/plain');
