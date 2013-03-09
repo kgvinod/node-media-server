@@ -21,9 +21,8 @@ var utils = require('../utils/utils')
   * @return {Function} Constructor for DeviceNotifier type.
   */
 
-function DeviceNotifier (iface_name, interval) {
-	this.ipAddr = utils.getNetworkIP(iface_name);
-    this.interval = interval;
+function DeviceNotifier () {
+
 	this.server = undefined;	
 	this.upnpNotifyMulticastAddress = '239.255.255.250';
 	this.upnpNotifyMulticastPort = '1900';
@@ -31,7 +30,10 @@ function DeviceNotifier (iface_name, interval) {
 
 
 
-DeviceNotifier.prototype.startAdvertisements = function () {	
+DeviceNotifier.prototype.startAdvertisements = function (iface_name, interval) {	
+
+	this.ipAddr = utils.getNetworkIP(iface_name);
+    this.interval = interval;
 
 	if (this.ipAddr === '0.0.0.0')
 	{
@@ -77,7 +79,8 @@ DeviceNotifier.prototype.stopAdvertisements = function (interval) {
 
 /**
   * Exports.
+  * Return the singleton instance
   */
 
-module.exports = exports = DeviceNotifier;
+module.exports = exports = new DeviceNotifier();
 
