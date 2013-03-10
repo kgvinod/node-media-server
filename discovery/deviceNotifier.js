@@ -64,7 +64,7 @@ DeviceNotifier.prototype.startAdvertisements = function (iface_name, interval) {
 	var multicastNotify = function () {
 		var message = new Buffer(self.notifyString);
 		self.server.send(message, 0, message.length, self.upnpNotifyMulticastPort, self.upnpNotifyMulticastAddress);
-		console.log("Sent :" + message);
+		//console.log("Sent :" + message);
 		//server.close();
 	}
 	

@@ -2,7 +2,8 @@
 
 var express = require('express')
   , deviceNotifier = require('./discovery/deviceNotifier')
-  , config = require('./config/config');
+  , config = require('./config/config')
+  , xmlBodyParser = require('./utils/xmlBodyParser');
 
 
 var app = express();
@@ -19,7 +20,7 @@ app.listen(config.web_server_port);
  
 app.configure( function() {
     console.log('Node listening on: ' + '/');
-    app.use(express.bodyParser());
+    app.use(xmlBodyParser);
 });
 
 app.get('/upnp/description.xml', function(req, res) {
@@ -65,7 +66,7 @@ app.post('/upnp/control/ConnectionManager', function(req, res) {
     console.log(req.get('SOAPACTION'));
     console.log(req.get('Content-Type'));
     console.log(req.get('User-Agent'));
-    console.log(req.body);
+    console.log(JSON.stringify(req.body));
 
 	res.sendfile('./description/xml/contentdirectorySCPD.xml');
     console.log('Sent response to Connection Manager action');
