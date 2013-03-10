@@ -9,7 +9,8 @@
  */
 var utils = require('../utils/utils')
   , config = require('../config/config')
-  , dgram = require('dgram');
+  , dgram = require('dgram')
+  , upnp_consts = require('../upnp/upnp_consts');
 
 
 /**
@@ -48,21 +49,22 @@ DeviceNotifier.prototype.startAdvertisements = function (iface_name, interval) {
 	this.server.addMembership(this.upnpNotifyMulticastAddress); 	
 	
 	
-	this.notifyString =	"NOTIFY * HTTP/1.1\r\n" +
-		"HOST: 239.255.255.250:1900\r\n" +
-		"CACHE-CONTROL: max-age = 100\r\n" +
-		"LOCATION: http://" + this.ipAddr + ":" + config.web_server_port + "/upnp/description.xml\r\n" +
-		"NT: upnp:rootdevice\r\n" +
-		"NTS: ssdp:alive\r\n" +
-		"SERVER: Ubuntu/12.04 UPnP/1.0 node-media-server/0.3\r\n" +
-		"USN: uuid:1eecac01-b4f5-4da3-a6f4-4696034c9ea8::upnp:rootdevice\r\n\r\n";
+	this.notifyString =	upnp_consts.SSDP_START_LINE_NOTIFY + '\r\n' +
+		'HOST: ' + upnp_consts.SSDP_DISCOVERY_MCAST_ADDRESS + ':' + 
+            upnp_consts.SSDP_DISCOVERY_MCAST_PORT + '\r\n' +
+		'CACHE-CONTROL: max-age = 100\r\n' +
+		'LOCATION: http://' + this.ipAddr + ':' + config.web_server_port + '/upnp/description.xml\r\n' +
+		'NT: upnp:rootdevice\r\n' +
+		'NTS: ssdp:alive\r\n' +
+		'SERVER: ' + config.server_name + '\r\n' +
+		'USN: uuid:' + config.root_uuid + '::upnp:rootdevice\r\n\r\n';
 	
 	var self = this;
 
 	var multicastNotify = function () {
 		var message = new Buffer(self.notifyString);
 		self.server.send(message, 0, message.length, self.upnpNotifyMulticastPort, self.upnpNotifyMulticastAddress);
-		//console.log("Sent :" + message);
+		console.log("Sent :" + message);
 		//server.close();
 	}
 	
