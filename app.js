@@ -12,6 +12,7 @@ var express = require('express')
   , config = require('./config/config')
   , xmlBodyParser = require('./utils/xml_body_parser')
   , connectionManagerService = require('./services/connection_manager')
+  , contentDirectoryService = require('./services/content_directory')
   , description = require('./description/description');  
 
 
@@ -37,7 +38,7 @@ app.get('/upnp/contentdirectorySCPD.xml', description.contentDirectoryServiceDes
  */
 
 app.post('/upnp/control/ConnectionManager', connectionManagerService.invokeAction);
-
+app.post('/upnp/control/ContentDirectory', contentDirectoryService.invokeAction);
 
 
 /**
