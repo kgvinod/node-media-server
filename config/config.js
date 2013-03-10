@@ -16,8 +16,10 @@ var config = {
     web_server_port : 8084,
     
     // uuid  of root device
-    root_uuid : '1eecac01-b4f5-4da3-a6f4-4696034c9ea8'    
+    root_uuid : '1eecac01-b4f5-4da3-a6f4-4696034c9ea8',
 
+    // Device advertisement periodicity (seconds)
+    device_notification_interval : 3
 }
 
 /**

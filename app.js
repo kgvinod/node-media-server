@@ -1,75 +1,48 @@
-// Main app
+/*!
+ * Main app
+ * Copyright(c) 2013 Vinod Gopalan <kgvinod@gmail.com>
+ * MIT Licensed
+ */
 
+/**
+ * Module dependencies.
+ */
 var express = require('express')
-  , deviceNotifier = require('./discovery/deviceNotifier')
+  , deviceNotifier = require('./discovery/device_notifier')
   , config = require('./config/config')
-  , xmlBodyParser = require('./utils/xmlBodyParser');
+  , xmlBodyParser = require('./utils/xml_body_parser')
+  , connectionManagerService = require('./services/connection_manager')
+  , description = require('./description/description');  
 
 
 var app = express();
-//var utils = require('./utils/utils');
-//utils.getNetworkIP(require('./config/config').network_interface_name);
-
-
-
-deviceNotifier.startAdvertisements(config.network_interface_name, 3000);
 
 app.listen(config.web_server_port);
-
-
  
 app.configure( function() {
     console.log('Node listening on: ' + '/');
     app.use(xmlBodyParser);
 });
 
-app.get('/upnp/description.xml', function(req, res) {
-	
-	//var body = 'Hello World';
-	//res.setHeader('Content-Type', 'text/plain');
-	//res.setHeader('Content-Length', body.length);
-	//res.end(body);
 
-	res.sendfile('./description/xml/devicedescr.xml');
-    console.log('Sent device description');
-});
+/**
+ * Configure routes - device and service description
+ */
+app.get('/upnp/description.xml', description.getDeviceDescription);
+app.get('/upnp/connectionmanagerSCPD.xml', description.connectionManagerServiceDescription);
+app.get('/upnp/contentdirectorySCPD.xml', description.contentDirectoryServiceDescription);    
 
-app.get('/upnp/connectionmanagerSCPD.xml', function(req, res) {
-	
-	//var body = 'Hello World';
-	//res.setHeader('Content-Type', 'text/plain');
-	//res.setHeader('Content-Length', body.length);
-	//res.end(body);
+/**
+ * Configure routes - Service control (actions)
+ */
 
-	res.sendfile('./description/xml/connectionmanagerSCPD.xml');
-    console.log('Sent service description');
-});
+app.post('/upnp/control/ConnectionManager', connectionManagerService.invokeAction);
 
-app.get('/upnp/contentdirectorySCPD.xml', function(req, res) {
-	
-	//var body = 'Hello World';
-	//res.setHeader('Content-Type', 'text/plain');
-	//res.setHeader('Content-Length', body.length);
-	//res.end(body);
 
-	res.sendfile('./description/xml/contentdirectorySCPD.xml');
-    console.log('Sent service description');
-});
 
-app.post('/upnp/control/ConnectionManager', function(req, res) {
-	
-	//var body = 'Hello World';
-	//res.setHeader('Content-Type', 'text/plain');
-	//res.setHeader('Content-Length', body.length);
-	//res.end(body);
-	
-    console.log(req.get('SOAPACTION'));
-    console.log(req.get('Content-Type'));
-    console.log(req.get('User-Agent'));
-    console.log(JSON.stringify(req.body));
-
-	res.sendfile('./description/xml/contentdirectorySCPD.xml');
-    console.log('Sent response to Connection Manager action');
-});
-
+/**
+ * Start device advertisements
+ */
+console.log('Starting devide advertisements ..');
+deviceNotifier.startAdvertisements(config.network_interface_name, config.device_notification_interval);
 
