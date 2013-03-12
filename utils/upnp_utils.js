@@ -42,6 +42,25 @@ UPnPUtils.prototype.getActionFromSOAPACTION = function (soap_action) {
 
 }
 
+UPnPUtils.prototype.cleanXml = function (input_xml) {
+
+    //console.log(input_xml);
+    
+    // Replace any " characters
+    var op_xml1 = input_xml.replace(/\"/g, "&quot;");
+ 
+	// Replace any " characters
+    var op_xml2 = op_xml1.replace(/>/g, "&gt;");
+    	
+	// Replace any " characters
+    var op_xml3 = op_xml2.replace(/</g, "&lt;");
+    
+    //console.log(input_xml1);
+    
+    return op_xml3;
+
+}
+
 
 /**
   * Exports.

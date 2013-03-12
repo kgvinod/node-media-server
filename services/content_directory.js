@@ -126,7 +126,26 @@ ContentDirectoryService.GetFeatureList = function(req, res) {
 
     console.log('Inside GetFeatureList');
     
-    var resp_str = '<?xml version="1.0" encoding="utf-8"?><s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><u:GetFeatureListResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1"><FeatureList>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;Features xmlns="urn:schemas-upnp-org:av:avs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:schemas-upnp-org:av:avs http://www.upnp.org/schemas/av/avs.xsd"&gt;&lt;/Features&gt;</FeatureList></u:GetFeatureListResponse></s:Body></s:Envelope>'
+    var result_str =         
+    
+        '<?xml version="1.0" encoding="UTF-8"?>' +
+        '<Features xmlns="urn:schemas-upnp-org:av:avs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:schemas-upnp-org:av:avs http://www.upnp.org/schemas/av/avs.xsd"></Features>';
+        
+	var cleaned_result_str = upnp_utils.cleanXml(result_str);        
+        
+    var resp_str = 
+        '<?xml version="1.0" encoding="utf-8"?>' + 
+        '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+        '<s:Body>' +
+        '<u:GetFeatureListResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">' +
+        '<FeatureList>' +
+        
+        cleaned_result_str +
+        
+        '</FeatureList>' + 
+        '</u:GetFeatureListResponse>' +
+        '</s:Body>' +
+        '</s:Envelope>';
  
     console.log('Sending response' + resp_str);
      
@@ -142,7 +161,21 @@ ContentDirectoryService.GetSystemUpdateID = function(req, res) {
 
     console.log('Inside GetSystemUpdateID');
     
-    var resp_str = '<?xml version="1.0" encoding="utf-8"?><s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><u:GetSystemUpdateIDResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1"><Id>3</Id></u:GetSystemUpdateIDResponse></s:Body></s:Envelope>>'
+    var result_str = '3';
+        
+	var cleaned_result_str = upnp_utils.cleanXml(result_str);        
+    
+    var resp_str = 
+        '<?xml version="1.0" encoding="utf-8"?>' + 
+        '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+        '<s:Body>' + 
+        '<u:GetSystemUpdateIDResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">' + 
+        '<Id>' +
+        cleaned_result_str + 
+        '</Id>' +
+        '</u:GetSystemUpdateIDResponse>' + 
+        '</s:Body>'+ 
+        '</s:Envelope>';
  
     console.log('Sending response' + resp_str);
      
@@ -242,46 +275,60 @@ ContentDirectoryService.Browse = function(req, res) {
 
     console.log('Inside Browse');
     
+    var result_str = 
+        '<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:dlna="urn:schemas-dlna-org:metadata-1-0/">'+
+        
+        '<container id="1000" parentID="0" restricted="1" searchable="0" childCount="1">'+
+        '<dc:title>All Media</dc:title>'+
+        '<upnp:class>object.container</upnp:class>'+
+        '<dc:date>2013-03-10T14:59:51</dc:date>'+
+        '</container>'+
+        
+        '<container id="2000" parentID="0" restricted="1" searchable="0" childCount="5">'+
+        '<dc:title>Music</dc:title>'+
+        '<upnp:class>object.container</upnp:class>'+
+        '<dc:date>2013-03-10T14:59:51</dc:date>'+
+        '</container>'+
+        
+        '<container id="3000" parentID="0" restricted="1" searchable="0" childCount="2">'+
+        '<dc:title>Picture</dc:title>'+
+        '<upnp:class>object.container</upnp:class>'+
+        '<dc:date>2013-03-10T14:59:51</dc:date>'+
+        '</container>'+
+        
+        '<container id="4000" parentID="0" restricted="1" searchable="0" childCount="2">'+
+        '<dc:title>Playlists</dc:title>'+
+        '<upnp:class>object.container</upnp:class>'+
+        '<dc:date>2013-03-10T14:59:51</dc:date>'+
+        '</container>'+
+        
+        '<container id="5000" parentID="0" restricted="1" searchable="0" childCount="2">'+
+        '<dc:title>Video</dc:title>'+
+        '<upnp:class>object.container</upnp:class>'+
+        '<dc:date>2013-03-10T14:59:51</dc:date>'+
+        '</container>' +
+        
+        '</DIDL-Lite>';
+
+	var cleaned_result_str = upnp_utils.cleanXml(result_str);
+        
     var resp_str = 
-    
-'<?xml version="1.0" encoding="utf-8"?>'+
-'<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'+
-'<s:Body>'+
-'<u:BrowseResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1"><Result>&lt;DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/" xmlns:dlna="urn:schemas-dlna-org:metadata-1-0/"&gt;'+
-'&lt;container id="1000" parentID="0" restricted="1" searchable="0" childCount="1"&gt;'+
-'&lt;dc:title&gt;All Media&lt;/dc:title&gt;'+
-'&lt;upnp:class&gt;object.container&lt;/upnp:class&gt;'+
-'&lt;dc:date&gt;2013-03-10T14:59:51&lt;/dc:date&gt;'+
-'&lt;/container&gt;'+
-'&lt;container id="2000" parentID="0" restricted="1" searchable="0" childCount="5"&gt;'+
-'&lt;dc:title&gt;Music&lt;/dc:title&gt;'+
-'&lt;upnp:class&gt;object.container&lt;/upnp:class&gt;'+
-'&lt;dc:date&gt;2013-03-10T14:59:51&lt;/dc:date&gt;'+
-'&lt;/container&gt;'+
-'&lt;container id="3000" parentID="0" restricted="1" searchable="0" childCount="2"&gt;'+
-'&lt;dc:title&gt;Picture&lt;/dc:title&gt;'+
-'&lt;upnp:class&gt;object.container&lt;/upnp:class&gt;'+
-'&lt;dc:date&gt;2013-03-10T14:59:51&lt;/dc:date&gt;'+
-'&lt;/container&gt;'+
-'&lt;container id="4000" parentID="0" restricted="1" searchable="0" childCount="2"&gt;'+
-'&lt;dc:title&gt;Playlists&lt;/dc:title&gt;'+
-'&lt;upnp:class&gt;object.container&lt;/upnp:class&gt;'+
-'&lt;dc:date&gt;2013-03-10T14:59:51&lt;/dc:date&gt;'+
-'&lt;/container&gt;'+
-'&lt;container id="5000" parentID="0" restricted="1" searchable="0" childCount="2"&gt;'+
-'&lt;dc:title&gt;Video&lt;/dc:title&gt;'+
-'&lt;upnp:class&gt;object.container&lt;/upnp:class&gt;'+
-'&lt;dc:date&gt;2013-03-10T14:59:51&lt;/dc:date&gt;'+
-'&lt;/container&gt;&lt;/DIDL-Lite&gt;</Result>'+
-'<NumberReturned>5</NumberReturned>'+
-'<TotalMatches>5</TotalMatches>'+
-'<UpdateID>3</UpdateID>'+
-'</u:BrowseResponse>'+
-'</s:Body>'+
-'</s:Envelope>';
+        '<?xml version="1.0" encoding="utf-8"?>'+
+        '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">'+
+        '<s:Body>'+
+        '<u:BrowseResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">' + 
+        '<Result>' +
+        cleaned_result_str +
+        '</Result>'+
+        '<NumberReturned>5</NumberReturned>'+
+        '<TotalMatches>5</TotalMatches>'+
+        '<UpdateID>3</UpdateID>'+
+        '</u:BrowseResponse>'+
+        '</s:Body>'+
+        '</s:Envelope>';
 
     
-    console.log('Sending response' + resp_str);
+    //console.log('Sending response' + cleaned_xml);
     
     res.send(resp_str);
     
