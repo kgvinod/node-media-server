@@ -39,15 +39,17 @@ function ContentDirectoryService() {
 
 ContentDirectoryService.prototype.invokeAction = function(req, res) {
 
-    console.log(req.get('SOAPACTION'));
-    console.log(req.get('Content-Type'));
-    console.log(req.get('User-Agent'));
-    console.log(JSON.stringify(req.body));
+    console.log('\n********** Service action handler - start **********');
+
+    console.log('\nSOAPACTION = ' + req.get('SOAPACTION'));
+    console.log('\nContent-Type = ' + req.get('Content-Type'));
+    console.log('\nUser-Agent = ' + req.get('User-Agent'));
+    console.log('\nFull request = ' + JSON.stringify(req.body));
 
     // Get the service action
     serviceAction = upnp_utils.getActionFromSOAPACTION(req.get('SOAPACTION'));
 
-    console.log('Service action = ' + serviceAction);
+    //console.log('Service action = ' + serviceAction);
 
     switch (serviceAction) {
 
@@ -81,7 +83,7 @@ ContentDirectoryService.prototype.invokeAction = function(req, res) {
     }
 
     //res.sendfile('./description/xml/contentdirectory_scpd.xml');
-    console.log('Sent response to Content Directory action');
+    console.log('\n********** Service action handler - end **********\n');
 
 };
 
@@ -365,7 +367,7 @@ ContentDirectoryService.Browse = function(req, res) {
         '</s:Envelope>';
 
     
-    //console.log('Sending response' + cleaned_xml);
+    console.log('\nFull response = ' + resp_str);
     
     res.send(resp_str);
     
