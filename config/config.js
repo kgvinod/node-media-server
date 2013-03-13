@@ -10,7 +10,7 @@ var config = {
     server_name : 'Ubuntu/12.04 UPnP/1.1 node-media-server/0.3',
     
     // Interface on which UPnP messages are sent and received
-    network_interface_name : 'eth0',
+    network_interface_name : 'wlan0',
 
     // node=media-server UI is served on this port  
     web_server_port : 8084,
