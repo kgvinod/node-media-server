@@ -93,12 +93,30 @@ ContentDirectoryService.GetSearchCapabilities = function(req, res) {
 
     console.log('Inside GetSearchCapabilities');
     
-    var resp_str = '<?xml version="1.0" encoding="utf-8"?><s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><u:GetSearchCapabilitiesResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1"><SearchCaps>dc:title,dc:creator,upnp:album,upnp:genre,dc:date,upnp:class,@refID</SearchCaps></u:GetSearchCapabilitiesResponse></s:Body></s:Envelope>'
+    var result_str =         
+    
+        'dc:title,dc:creator,upnp:album,upnp:genre,dc:date,upnp:class,@refID';
+        
+	var cleaned_result_str = upnp_utils.cleanXml(result_str);        
+        
+    var resp_str = 
+        '<?xml version="1.0" encoding="utf-8"?>' + 
+        '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+        '<s:Body>' +
+        '<u:GetSearchCapabilitiesResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">' +
+        '<SearchCaps>' +
+        
+        cleaned_result_str +
+        
+        '</SearchCaps>' + 
+        '</u:GetSearchCapabilitiesResponse>' +
+        '</s:Body>' +
+        '</s:Envelope>';
  
     console.log('Sending response' + resp_str);
      
-    res.send(resp_str);
-    
+    res.send(resp_str);    
+ 
 
 };
 
@@ -110,11 +128,30 @@ ContentDirectoryService.GetSortCapabilities = function(req, res) {
 
     console.log('Inside GetSortCapabilities');
     
-    var resp_str = '<?xml version="1.0" encoding="utf-8"?><s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body><u:GetSortCapabilitiesResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1"><SortCaps>dc:title,dc:creator,upnp:album,upnp:genre</SortCaps></u:GetSortCapabilitiesResponse></s:Body></s:Envelope>'
+    var result_str =         
+    
+        'dc:title,dc:creator,upnp:album,upnp:genre';
+        
+	var cleaned_result_str = upnp_utils.cleanXml(result_str);        
+        
+    var resp_str = 
+        '<?xml version="1.0" encoding="utf-8"?>' + 
+        '<s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">' +
+        '<s:Body>' +
+        '<u:GetSortCapabilitiesResponse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">' +
+        '<SortCaps>' +
+        
+        cleaned_result_str +
+        
+        '</SortCaps>' + 
+        '</u:GetSortCapabilitiesResponse>' +
+        '</s:Body>' +
+        '</s:Envelope>';
  
     console.log('Sending response' + resp_str);
      
-    res.send(resp_str);    
+    res.send(resp_str);      
+       
 
 };
 
