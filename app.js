@@ -9,6 +9,7 @@
  */
 var express = require('express')
   , deviceNotifier = require('./discovery/device_notifier')
+  , multicastListener = require('./discovery/mcast_listener')
   , config = require('./config/config')
   , xmlBodyParser = require('./utils/xml_body_parser')
   , connectionManagerService = require('./services/connection_manager')
@@ -46,4 +47,5 @@ app.post('/upnp/control/ContentDirectory', contentDirectoryService.invokeAction)
  */
 console.log('Starting devide advertisements ..');
 deviceNotifier.startAdvertisements(config.network_interface_name, config.device_notification_interval);
+multicastListener.startListening(config.network_interface_name);
 
